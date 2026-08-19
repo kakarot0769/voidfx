@@ -177,359 +177,320 @@ nav a,
   margin-right: 7px;
 }
 
-/* =========================
-   HERO
-========================= */
+/* =========================================
+   DESKTOP HERO — PC ONLY
+========================================= */
 
 .hero {
-  min-height: 100vh;
-  position: relative;
+    min-height: 100vh;
+    width: 100%;
 
-  display: grid;
-  grid-template-columns: 1.05fr .95fr;
+    display: grid;
+    grid-template-columns: 50% 50%;
 
-  align-items: center;
+    align-items: center;
+    justify-content: center;
 
-  padding: 110px 8% 70px;
+    padding: 90px 6% 60px;
 
-  overflow: hidden;
+    position: relative;
+    overflow: hidden;
 
-  background:
-    radial-gradient(
-      circle at 75% 48%,
-      rgba(137, 10, 0, .25),
-      transparent 30%
-    ),
-    radial-gradient(
-      circle at 20% 80%,
-      rgba(70, 0, 0, .22),
-      transparent 35%
-    );
+    background:
+        radial-gradient(
+            circle at 25% 50%,
+            rgba(120, 5, 0, 0.20),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 80% 50%,
+            rgba(100, 5, 0, 0.18),
+            transparent 35%
+        ),
+        #070707;
 }
 
-.hero:before {
-  content: "";
 
-  position: absolute;
-
-  width: 55vw;
-  height: 55vw;
-
-  border-radius: 50%;
-
-  right: -20vw;
-  top: -15vw;
-
-  background:
-    conic-gradient(
-      from 20deg,
-      transparent,
-      rgba(255, 36, 23, .08),
-      transparent 35%,
-      rgba(255, 72, 30, .1),
-      transparent 60%
-    );
-
-  filter: blur(2px);
-
-  animation: spin 18s linear infinite;
-}
-
-/* Typography */
-
-.eyebrow {
-  font-size: .68rem;
-  letter-spacing: .22em;
-  color: #aaa19b;
-  text-transform: uppercase;
-  margin-bottom: 20px;
-}
-
-.eyebrow span {
-  display: inline-block;
-
-  width: 28px;
-  height: 1px;
-
-  background: var(--red);
-
-  vertical-align: middle;
-
-  margin-right: 10px;
-
-  box-shadow: 0 0 8px var(--red);
-}
-
-h1,
-h2,
-h3 {
-  font-family: var(--display);
-  line-height: 1.03;
-  text-transform: uppercase;
-}
-
-h1 {
-  font-size: clamp(3.6rem, 8vw, 8rem);
-  letter-spacing: -.055em;
-}
-
-h1 em,
-h2 em {
-  font-style: normal;
-
-  color: var(--red);
-
-  text-shadow:
-    0 0 25px rgba(255, 36, 23, .35);
-}
-
-.hero-text {
-  max-width: 590px;
-
-  color: #aaa29c;
-
-  margin: 26px 0 30px;
-
-  font-size: 1rem;
-}
-
-.hero-actions {
-  display: flex;
-  gap: 13px;
-  flex-wrap: wrap;
-}
-
-/* Buttons */
-
-.btn {
-  display: inline-flex;
-
-  align-items: center;
-
-  gap: 25px;
-
-  padding: 14px 20px;
-
-  border-radius: 3px;
-
-  text-decoration: none;
-
-  text-transform: uppercase;
-
-  letter-spacing: .12em;
-
-  font-size: .7rem;
-
-  font-weight: 800;
-
-  transition: .3s;
-}
-
-.btn-fire {
-  background:
-    linear-gradient(
-      110deg,
-      #8b0c05,
-      var(--red),
-      #ff5c27
-    );
-
-  color: #fff;
-
-  box-shadow:
-    0 12px 40px rgba(255, 36, 23, .22);
-}
-
-.btn-fire:hover {
-  transform: translateY(-4px);
-
-  box-shadow:
-    0 18px 55px rgba(255, 36, 23, .38);
-}
-
-.btn-ghost {
-  border: 1px solid #2b2a29;
-  color: #aaa;
-}
-
-.btn-ghost:hover {
-  border-color: var(--red);
-  color: #fff;
-}
-
-/* =========================
-   FIRE ORB
-========================= */
+/* =========================================
+   LEFT SIDE — FIRE ORB
+========================================= */
 
 .hero-orb-wrap {
-  height: 580px;
+    width: 100%;
+    height: 620px;
 
-  position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-  display: grid;
-  place-items: center;
+    position: relative;
 
-  perspective: 1000px;
+    perspective: 1200px;
+
+    /* IMPORTANT:
+       This pulls the orb slightly upward
+       so it aligns with the headline. */
+    transform: translateY(-10px);
 }
+
+
+/* Fire sphere */
 
 .fire-orb {
-  width: min(430px, 70vw);
-  aspect-ratio: 1;
+    width: min(460px, 34vw);
+    aspect-ratio: 1;
 
-  position: relative;
+    position: relative;
 
-  border-radius: 50%;
+    border-radius: 50%;
 
-  transform-style: preserve-3d;
+    transform-style: preserve-3d;
 
-  animation: float 5s ease-in-out infinite;
+    animation: float 5s ease-in-out infinite;
+
+    z-index: 5;
 }
+
+
+/* =========================================
+   ORB GLOW
+========================================= */
 
 .orb-shadow {
-  position: absolute;
+    position: absolute;
 
-  width: 320px;
-  height: 70px;
+    width: 360px;
+    height: 100px;
 
-  background: #ff260f;
+    background: #ff260f;
 
-  filter: blur(70px);
+    filter: blur(75px);
 
-  opacity: .25;
+    opacity: .28;
 
-  bottom: 90px;
-  left: 50%;
+    bottom: 45px;
+    left: 50%;
 
-  transform: translateX(-50%);
+    transform: translateX(-50%);
 }
+
+
+/* Main fire */
 
 .orb-core {
-  position: absolute;
+    position: absolute;
 
-  inset: 16%;
+    inset: 14%;
 
-  border-radius: 50%;
+    border-radius: 50%;
 
-  background:
-    radial-gradient(
-      circle at 40% 35%,
-      #fff3cf 0 2%,
-      #ffbd5d 5%,
-      #ff5422 18%,
-      #ae0b05 48%,
-      #160100 72%,
-      #000 100%
-    );
+    background:
+        radial-gradient(
+            circle at 38% 32%,
+            #fff6d8 0%,
+            #ffc46b 4%,
+            #ff6b2b 13%,
+            #ff3218 25%,
+            #b80c05 48%,
+            #290100 72%,
+            #000 100%
+        );
 
-  box-shadow:
-    inset -30px -30px 60px #000,
-    0 0 60px rgba(255, 44, 20, .6),
-    0 0 130px rgba(177, 12, 0, .25);
+    box-shadow:
+        inset -35px -35px 70px #000,
+        inset 10px 5px 35px rgba(255,255,255,.2),
+        0 0 50px rgba(255,40,20,.7),
+        0 0 110px rgba(200,15,0,.35);
 
-  transform: translateZ(20px);
+    transform: translateZ(25px);
 }
 
+
+/* Orbital rings */
+
 .orb-ring {
-  position: absolute;
+    position: absolute;
 
-  inset: 7%;
+    inset: 5%;
 
-  border: 1px solid rgba(255, 65, 30, .3);
+    border:
+        1px solid
+        rgba(255,70,35,.42);
 
-  border-radius: 50%;
+    border-radius: 50%;
 
-  transform-style: preserve-3d;
+    transform-style: preserve-3d;
+
+    box-shadow:
+        0 0 15px rgba(255,40,20,.12);
 }
 
 .ring-a {
-  transform:
-    rotateX(67deg)
-    rotateY(18deg);
+    transform:
+        rotateX(68deg)
+        rotateY(18deg);
 }
 
 .ring-b {
-  transform:
-    rotateY(67deg)
-    rotateZ(18deg);
+    transform:
+        rotateY(68deg)
+        rotateZ(20deg);
 }
 
 .ring-c {
-  transform:
-    rotateX(22deg)
-    rotateZ(72deg);
+    transform:
+        rotateX(25deg)
+        rotateZ(70deg);
 }
+
+
+/* Orb text */
 
 .orb-label {
-  position: absolute;
-  inset: 0;
+    position: absolute;
 
-  display: grid;
-  place-items: center;
+    inset: 0;
 
-  text-align: center;
+    display: grid;
+    place-items: center;
 
-  font:
-    800
-    clamp(.65rem, 1vw, .8rem)
-    var(--display);
+    text-align: center;
 
-  letter-spacing: .25em;
+    font:
+        800
+        clamp(.65rem, .9vw, .85rem)
+        var(--display);
 
-  color: #ffe1d5;
+    letter-spacing: .24em;
 
-  text-shadow: 0 0 15px #ff2b15;
+    line-height: 1.45;
 
-  transform: translateZ(65px);
+    color: #ffe7df;
 
-  line-height: 1.5;
+    text-shadow:
+        0 0 10px #ff3a20,
+        0 0 25px rgba(255,40,20,.5);
+
+    transform: translateZ(70px);
 }
 
-/* Floating cards */
 
-.floating-card {
-  position: absolute;
+/* =========================================
+   RIGHT SIDE — HEADLINE
+========================================= */
 
-  background: rgba(12, 12, 12, .72);
+.hero-copy {
+    width: 100%;
+    max-width: 650px;
 
-  border: 1px solid var(--line);
+    margin: 0 auto;
 
-  backdrop-filter: blur(14px);
+    position: relative;
+    z-index: 10;
 
-  padding: 13px 16px;
-
-  display: flex;
-
-  align-items: center;
-
-  gap: 11px;
-
-  box-shadow:
-    0 18px 50px rgba(0, 0, 0, .35);
+    /* This makes the text block
+       vertically match the orb */
+    transform: translateY(-5px);
 }
 
-.floating-card b {
-  font:
-    800
-    1.5rem
-    var(--display);
 
-  color: var(--red);
+.hero-copy h1 {
+    font-size: clamp(
+        4.5rem,
+        6.2vw,
+        7.8rem
+    );
+
+    line-height: .88;
+
+    letter-spacing: -.065em;
+
+    margin: 0;
+
+    max-width: 650px;
 }
 
-.floating-card small {
-  font-size: .55rem;
-  letter-spacing: .15em;
-  color: #aaa;
+
+.hero-copy h1 em {
+    color: var(--red);
+
+    font-style: normal;
+
+    text-shadow:
+        0 0 15px rgba(255,35,20,.45),
+        0 0 40px rgba(255,20,10,.2);
 }
+
+
+.hero-text {
+    max-width: 540px;
+
+    margin-top: 32px;
+
+    color: #a29b96;
+
+    font-size: .92rem;
+
+    line-height: 1.7;
+}
+
+
+.hero-actions {
+    display: flex;
+
+    gap: 12px;
+
+    margin-top: 28px;
+}
+
+
+/* =========================================
+   FLOATING EXPERIENCE CARDS
+========================================= */
 
 .card-top {
-  top: 20%;
-  right: 2%;
+    position: absolute;
+
+    top: 16%;
+    right: 3%;
+
+    z-index: 20;
 }
 
 .card-bottom {
-  bottom: 19%;
-  left: 4%;
+    position: absolute;
+
+    bottom: 17%;
+    left: 3%;
+
+    z-index: 20;
+}
+
+
+/* =========================================
+   DESKTOP ORBITAL CENTER LINE
+========================================= */
+
+.hero-orb-wrap::after {
+    content: "";
+
+    position: absolute;
+
+    width: 1px;
+    height: 75%;
+
+    right: 0;
+
+    top: 12.5%;
+
+    background:
+        linear-gradient(
+            transparent,
+            rgba(255,40,20,.18),
+            transparent
+        );
+
+    opacity: .5;
 }
 
 /* =========================
