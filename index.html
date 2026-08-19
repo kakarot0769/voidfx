@@ -3,129 +3,154 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>voidfx | PORTFOLIO</title>
-    <link rel="stylesheet" href="col.css">
+  <meta name="theme-color" content="#070707">
+  <title>VOIDFX — Video Editor Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Orbitron:wght@500;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="col.css">
 </head>
 <body>
-  <div class="custom-cursor" id="custom-cursor" aria-hidden="true"></div>
-  <div class="cursor-trail" id="cursor-trail" aria-hidden="true"></div>
-  <div class="scroll-progress" id="scroll-progress" aria-hidden="true"></div>
+  <div class="noise"></div>
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursor-ring"></div>
+  <div class="progress" id="progress"></div>
 
-  <!-- Hero Section -->
-  <section class="hero reveal">
-    <div class="hero-inner" style="display: flex; align-items: center; max-width: 1200px; width: 100%;">
-      <div class="logo">
-        <img src="rahul.jpeg" alt="RAHUL Logo" id="logo-img">
-      </div>
-      <div class="hero-content">
-        <h1>RAHUL</h1>
-        <h2 style="font-size: 2.2rem; color: #00f0ff; margin-top: -10px;">PORTFOLIO</h2>
-        <p style="font-size: 1.5rem; margin: 20px 0;">VIDEO EDITOR & CONTENT CREATOR</p>
-        <div class="nav">
-          <a href="#about">Start</a>
-          <a href="#work">Work</a>
-          <a href="#contact">Contact</a>
+  <header class="topbar">
+    <a class="brand" href="#top">VOID<span>FX</span></a>
+    <nav>
+      <a href="#about">About</a>
+      <a href="#work">Work</a>
+      <a href="#skills">Stack</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <a class="availability" href="#contact"><i></i> Available for work</a>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="embers" aria-hidden="true"></div>
+      <div class="hero-copy reveal">
+        <p class="eyebrow"><span></span> VIDEO EDITOR / MOTION DESIGNER</p>
+        <h1>MAKE EVERY<br><em>FRAME</em> BURN.</h1>
+        <p class="hero-text">Cinematic edits, high-retention social cuts and motion graphics engineered to make people stop scrolling.</p>
+        <div class="hero-actions">
+          <a class="btn btn-fire" href="#work">Explore the work <b>↗</b></a>
+          <a class="btn btn-ghost" href="#contact">Let's create</a>
         </div>
       </div>
-    </div>
-  </section>
 
-  <!-- About Section -->
-  <section class="section about reveal" id="about">
-    <div class="about-img reveal">
-      <img src="rahul.jpeg" alt="voidfx" id="about-img">
-    </div>
-    <div>
-      <h2 style="font-size: 2.8rem; margin-bottom: 20px;">ABOUT ME</h2>
-      <p>I'm RAHUL, a passionate video editor and content creator with over 6 years of experience crafting compelling visual stories. From cinematic edits to viral social content, I bring creativity and technical skill to every project.</p>
+      <div class="hero-orb-wrap reveal">
+        <div class="orb-shadow"></div>
+        <div class="fire-orb">
+          <div class="orb-core"></div>
+          <div class="orb-ring ring-a"></div>
+          <div class="orb-ring ring-b"></div>
+          <div class="orb-ring ring-c"></div>
+          <span class="orb-label">RENDER<br>THE<br>IMPOSSIBLE</span>
+        </div>
+        <div class="floating-card card-top"><b>6+</b><small>YEARS<br>EDITING</small></div>
+        <div class="floating-card card-bottom"><b>4K</b><small>CINEMATIC<br>DELIVERY</small></div>
+      </div>
+    </section>
 
-      <h3 style="margin: 40px 0 15px; color: var(--neon-blue);">SOFTWARE SKILLS</h3>
-      <div class="skills">
+    <section class="ticker" aria-label="services">
+      <div>EDIT • MOTION • COLOR • SOUND • VFX • EDIT • MOTION • COLOR • SOUND • VFX •</div>
+    </section>
 
-  <div class="skill-badge reveal">
-    <img src="after-effects.png" alt="After Effects Logo">
-    <span>After Effects</span>
-  </div>
+    <section class="section about" id="about">
+      <div class="section-heading reveal">
+        <p class="eyebrow"><span></span> 01 / THE EDITOR</p>
+        <h2>Story first.<br><em>Impact always.</em></h2>
+      </div>
+      <div class="about-grid">
+        <div class="portrait-wrap reveal">
+          <div class="portrait-frame">
+            <img src="rahul.jpeg" alt="Video editor portrait">
+            <div class="portrait-glow"></div>
+          </div>
+          <div class="vertical-tag">VOIDFX / 2026</div>
+        </div>
+        <div class="about-copy reveal">
+          <p class="lead">I'm Rahul — a video editor and content creator who turns raw footage into visual experiences with rhythm, atmosphere and attitude.</p>
+          <p>I work across cinematic storytelling, reels, YouTube, commercials, music edits and motion-led social content. My process blends sharp pacing with intentional sound design, color and visual effects.</p>
+          <div class="stats">
+            <div><strong>100+</strong><span>PROJECTS</span></div>
+            <div><strong>6+</strong><span>YEARS</span></div>
+            <div><strong>24H</strong><span>FAST TURNAROUND</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-  <div class="skill-badge reveal">
-    <img src="premiere-pro.png" alt="Premiere Pro Logo">
-    <span>Premiere Pro</span>
-  </div>
-
-  <div class="skill-badge reveal">
-    <img src="capcut.webp" alt="CapCut Logo">
-    <span>CapCut</span>
-  </div>
-
-  <div class="skill-badge reveal">
-    <img src="davinci-resolve-logo-davinci-resolve-icon-transparent-background-free-png.webp" alt="DaVinci Resolve Logo">
-    <span>DaVinci Resolve</span>
-  </div>
-
-  <div class="skill-badge reveal">
-    <img src="photoshop.png" alt="Photoshop Logo">
-    <span>Photoshop</span>
-  </div>
-
-  <div class="skill-badge reveal">
-    <img src="photoshop-lightroom.png" alt="Lightroom Logo">
-    <span>Lightroom</span>
-  </div>
-
-  <div class="skill-badge reveal">
-    <img src="snapseed.png" alt="Snapseed Logo">
-    <span>Snapseed</span>
-  </div>
-
+    <section class="section work" id="work">
+      <div class="section-heading centered reveal">
+        <p class="eyebrow"><span></span> 02 / SELECTED WORK</p>
+        <h2>Cut. Grade. <em>Ignite.</em></h2>
+        <p>Replace the demo thumbnails below with your real reels, films and campaigns.</p>
       </div>
 
-      <div class="info-boxes reveal">
-
-        <div class="info-card reveal">
-          <h4>Experience</h4>
-          <p>6+ Years Editing</p>
-          <p>Freelancing & Agency</p>
-        </div>
-
-        <div class="info-card reveal">
-          <h4>Languages</h4>
-          <p>English, Hindi, Bengali</p>
-          <p>Native & Fluent</p>
-        </div>
-
+      <div class="work-grid">
+        <article class="work-card wide reveal">
+          <div class="work-visual visual-one">
+            <div class="scanline"></div><span>01</span><b>CINEMATIC</b>
+          </div>
+          <div class="work-info"><span>FILM / COLOR / SOUND</span><h3>After Dark</h3><a href="#contact">View project ↗</a></div>
+        </article>
+        <article class="work-card reveal">
+          <div class="work-visual visual-two"><div class="play">▶</div><span>02</span></div>
+          <div class="work-info"><span>SOCIAL / RETENTION</span><h3>Redline Reels</h3><a href="#contact">View project ↗</a></div>
+        </article>
+        <article class="work-card reveal">
+          <div class="work-visual visual-three"><div class="play">▶</div><span>03</span></div>
+          <div class="work-info"><span>MOTION / VFX</span><h3>Inferno Type</h3><a href="#contact">View project ↗</a></div>
+        </article>
+        <article class="work-card reveal">
+          <div class="work-visual visual-four"><div class="play">▶</div><span>04</span></div>
+          <div class="work-info"><span>COMMERCIAL / EDIT</span><h3>Heatwave</h3><a href="#contact">View project ↗</a></div>
+        </article>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Portfolio Section -->
-  <section class="section portfolio reveal" id="work">
-    <h2 style="font-size: 3rem; text-align: center; margin-bottom: 20px;">MY WORKS</h2>
-    <p style="text-align: center; color: #aaa; margin-bottom: 50px;">A curated selection of my best video editing projects, from cinematic reels to commercial content.</p>
+    <section class="section skills" id="skills">
+      <div class="section-heading reveal">
+        <p class="eyebrow"><span></span> 03 / TOOLKIT</p>
+        <h2>Built for the<br><em>timeline.</em></h2>
+      </div>
+      <div class="skill-stage reveal">
+        <div class="skill-3d">
+          <div class="skill-face face-front">PR</div>
+          <div class="skill-face face-back">AE</div>
+          <div class="skill-face face-right">DR</div>
+          <div class="skill-face face-left">PS</div>
+          <div class="skill-face face-top">CC</div>
+          <div class="skill-face face-bottom">VFX</div>
+        </div>
+        <div class="tool-list">
+          <div><img src="premiere-pro.png" alt=""><span>Premiere Pro</span><b>EDIT</b></div>
+          <div><img src="after-effects.png" alt=""><span>After Effects</span><b>MOTION</b></div>
+          <div><img src="davinci-resolve-logo-davinci-resolve-icon-transparent-background-free-png.webp" alt=""><span>DaVinci Resolve</span><b>COLOR</b></div>
+          <div><img src="photoshop.png" alt=""><span>Photoshop</span><b>DESIGN</b></div>
+          <div><img src="capcut.webp" alt=""><span>CapCut</span><b>SOCIAL</b></div>
+        </div>
+      </div>
+    </section>
 
-    <div class="portfolio-grid">
-      <div class="portfolio-item reveal"><img src="https://via.placeholder.com/600x400/112233/ffffff?text=Film+Studio" alt="Film Studio"></div>
-      <div class="portfolio-item reveal"><img src="https://via.placeholder.com/600x400/220033/ffffff?text=Music+Video" alt="Music Video"></div>
-      <div class="portfolio-item reveal"><img src="https://via.placeholder.com/600x400/001122/ffffff?text=Phone+Shoot" alt="Phone Shoot"></div>
-      <div class="portfolio-item reveal"><img src="https://via.placeholder.com/600x400/330022/ffffff?text=Cameraman" alt="Cameraman"></div>
-      <div class="portfolio-item reveal"><img src="https://via.placeholder.com/600x400/112255/ffffff?text=Neon+Abstract" alt="Neon Abstract"></div>
-      <div class="portfolio-item reveal"><img src="https://via.placeholder.com/600x400/445566/ffffff?text=Commercial" alt="Commercial"></div>
-    </div>
-  </section>
+    <section class="contact" id="contact">
+      <div class="contact-glow"></div>
+      <div class="contact-inner reveal">
+        <p class="eyebrow"><span></span> 04 / CONTACT</p>
+        <h2>Got footage?<br><em>Let's set it on fire.</em></h2>
+        <p>Tell me what you're making, what you're trying to achieve and when you need it.</p>
+        <a class="btn btn-fire" href="mailto:your@email.com">Start a project <b>↗</b></a>
+        <div class="socials">
+          <a href="#">Instagram</a><a href="#">YouTube</a><a href="#">Behance</a><a href="#">LinkedIn</a>
+        </div>
+      </div>
+    </section>
+  </main>
 
-  <!-- Thank You Section -->
-  <section class="thank-you reveal" id="contact">
-    <div style="max-width: 700px; margin: 0 auto;">
-      <img src="rahul.jpeg" class="profile-img" id="footer-img">
-      <h1>THANK YOU</h1>
-      <p style="font-size: 1.3rem; margin: 20px 0;">Let's create something amazing together. Feel free to connect with me and let's turn the frames into something creative.</p>
-      <button class="connect-btn" onclick="alert('Contact form would open here in real version')">Let's Connect</button>
-    </div>
-  </section>
-
-  <footer>
-    © 2026 <voidfx class="creates"></voidfx>. All rights reserved.
-  </footer>
-
+  <footer>© 2026 VOIDFX — VIDEO EDITOR & CONTENT CREATOR</footer>
   <script src="script.js"></script>
 </body>
 </html>
