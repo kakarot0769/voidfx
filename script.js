@@ -1,146 +1,224 @@
-/* =====================================================
-   voidfx portfolio — interactions
-   1. Smooth custom cursor with trailing follower
-   2. Scroll-based reveal animations
-   3. Scroll progress bar
-   4. Pop-up modal for skill logos
-===================================================== */
+document.addEventListener("DOMContentLoaded", () => {
 
-document.addEventListener('DOMContentLoaded', () => {
+  /* =========================
+     CUSTOM CURSOR
+  ========================= */
 
-  /* ---------- 1. Smooth cursor + trail ---------- */
-  const cursor = document.getElementById('custom-cursor');
-  const trail  = document.getElementById('cursor-trail');
-  const isTouch = window.matchMedia('(pointer: coarse)').matches;
+  const cursor = document.getElementById("cursor");
+  const ring = document.getElementById("cursor-ring");
 
-  if (cursor && trail && !isTouch) {
-    let mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2;
-    let cursorX = mouseX, cursorY = mouseY;
-    let trailX = mouseX, trailY = mouseY;
+  let mx = innerWidth / 2;
+  let my = innerHeight / 2;
 
-    window.addEventListener('mousemove', (e) => {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
-      cursor.style.opacity = '0.95';
-      trail.style.opacity = '0.5';
+  let rx = mx;
+  let ry = my;
+
+  if (matchMedia("(pointer:fine)").matches) {
+
+    addEventListener("mousemove", (e) => {
+      mx = e.clientX;
+      my = e.clientY;
     });
 
-    // Smooth follow loop (lerp easing for buttery movement)
-    function animateCursor() {
-      cursorX += (mouseX - cursorX) * 0.35; // fast follower
-      cursorY += (mouseY - cursorY) * 0.35;
-      trailX  += (mouseX - trailX) * 0.12;  // slow trailing follower
-      trailY  += (mouseY - trailY) * 0.12;
+    const loop = () => {
 
-      cursor.style.transform = `translate(${cursorX}px, ${cursorY}px) translate(-50%, -50%)`;
-      trail.style.transform  = `translate(${trailX}px, ${trailY}px) translate(-50%, -50%)`;
+      rx += (mx - rx) * 0.2;
+      ry += (my - ry) * 0.2;
 
-      requestAnimationFrame(animateCursor);
-    }
-    animateCursor();
+      cursor.style.left = mx + "px";
+      cursor.style.top = my + "px";
 
-    // Grow cursor on interactive elements
-    const hoverTargets = 'a, button, .skill-badge, .portfolio-item, .connect-btn, img';
-    document.addEventListener('mouseover', (e) => {
-      if (e.target.closest(hoverTargets)) {
-        cursor.classList.add('cursor-large');
-        trail.classList.add('trail-large');
-      }
-    });
-    document.addEventListener('mouseout', (e) => {
-      if (e.target.closest(hoverTargets)) {
-        cursor.classList.remove('cursor-large');
-        trail.classList.remove('trail-large');
-      }
-    });
+      ring.style.left = rx + "px";
+      ring.style.top = ry + "px";
 
-    // Click ripple feedback
-    document.addEventListener('mousedown', () => cursor.classList.add('cursor-click'));
-    document.addEventListener('mouseup', () => cursor.classList.remove('cursor-click'));
+      requestAnimationFrame(loop);
+    };
 
-    document.addEventListener('mouseleave', () => {
-      cursor.style.opacity = '0';
-      trail.style.opacity = '0';
-    });
-  } else if (cursor && trail) {
-    cursor.style.display = 'none';
-    trail.style.display = 'none';
+    loop();
+
+    /* Cursor hover effect */
+
+    document
+      .querySelectorAll(
+        "a, .work-card, .tool-list div, .btn"
+      )
+      .forEach((el) => {
+
+        el.addEventListener("mouseenter", () => {
+          ring.classList.add("big");
+        });
+
+        el.addEventListener("mouseleave", () => {
+          ring.classList.remove("big");
+        });
+
+      });
   }
 
-  /* ---------- 2. Scroll reveal ---------- */
-  const revealEls = document.querySelectorAll('.reveal');
-  const revealObserver = new IntersectionObserver((entries) => {
-    entries.forEach((entry, i) => {
-      if (entry.isIntersecting) {
-        // slight stagger for elements revealing together (e.g. skill badges)
-        entry.target.style.transitionDelay = `${(i % 6) * 60}ms`;
-        entry.target.classList.add('in');
-        revealObserver.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
 
-  revealEls.forEach(el => revealObserver.observe(el));
+  /* =========================
+     SCROLL PROGRESS
+  ========================= */
 
-  /* ---------- 3. Scroll progress bar ---------- */
-  const progressBar = document.getElementById('scroll-progress');
-  function updateProgress() {
-    const scrollTop = window.scrollY;
-    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-    const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
-    if (progressBar) progressBar.style.width = pct + '%';
-  }
-  window.addEventListener('scroll', updateProgress, { passive: true });
+  const progress =
+    document.getElementById("progress");
+
+  const updateProgress = () => {
+
+    const pageHeight =
+      document.documentElement.scrollHeight -
+      innerHeight;
+
+    const percentage =
+      scrollY / Math.max(pageHeight, 1);
+
+    progress.style.width =
+      percentage * 100 + "%";
+  };
+
+  addEventListener(
+    "scroll",
+    updateProgress,
+    { passive: true }
+  );
+
   updateProgress();
 
-  /* ---------- 4. Skill logo pop-up modal ---------- */
-  const skillBadges = document.querySelectorAll('.skill-badge');
-  let modalEl = null;
 
-  function openSkillModal(name, src) {
-    closeSkillModal();
-    modalEl = document.createElement('div');
-    modalEl.className = 'logo-modal';
-    modalEl.innerHTML = `
-      <div class="card pop-in">
-        <img src="${src}" alt="${name} logo">
-        <h3>${name}</h3>
-        <p>Part of my everyday editing & creative toolkit.</p>
-        <button class="close">Close</button>
-      </div>
-    `;
-    document.body.appendChild(modalEl);
-    document.body.style.overflow = 'hidden';
+  /* =========================
+     SCROLL REVEAL
+  ========================= */
 
-    modalEl.addEventListener('click', (e) => {
-      if (e.target === modalEl || e.target.classList.contains('close')) {
-        closeSkillModal();
+  const observer =
+    new IntersectionObserver(
+      (entries) => {
+
+        entries.forEach((entry) => {
+
+          if (entry.isIntersecting) {
+
+            entry.target.classList.add("in");
+
+            observer.unobserve(
+              entry.target
+            );
+          }
+
+        });
+
+      },
+      {
+        threshold: 0.12
       }
+    );
+
+
+  document
+    .querySelectorAll(".reveal")
+    .forEach((element, index) => {
+
+      element.style.transitionDelay =
+        (index % 5) * 70 + "ms";
+
+      observer.observe(element);
     });
+
+
+  /* =========================
+     HERO 3D PARALLAX
+  ========================= */
+
+  const hero =
+    document.querySelector(".hero");
+
+  const orb =
+    document.querySelector(".fire-orb");
+
+
+  if (
+    hero &&
+    orb &&
+    matchMedia("(pointer:fine)").matches
+  ) {
+
+    hero.addEventListener(
+      "mousemove",
+      (e) => {
+
+        const x =
+          (e.clientX / innerWidth - 0.5) * 2;
+
+        const y =
+          (e.clientY / innerHeight - 0.5) * 2;
+
+        orb.style.transform = `
+          rotateY(${x * 7}deg)
+          rotateX(${-y * 6}deg)
+          translateY(${y * -8}px)
+        `;
+      }
+    );
+
+
+    hero.addEventListener(
+      "mouseleave",
+      () => {
+        orb.style.transform = "";
+      }
+    );
   }
 
-  function closeSkillModal() {
-    if (modalEl) {
-      modalEl.remove();
-      modalEl = null;
-      document.body.style.overflow = '';
-    }
-  }
 
-  skillBadges.forEach(badge => {
-    badge.addEventListener('click', () => {
-      const img = badge.querySelector('img');
-      const name = badge.querySelector('span')?.textContent || 'Skill';
-      // little pop kick on the badge itself
-      badge.classList.remove('pop');
-      void badge.offsetWidth; // restart animation
-      badge.classList.add('pop');
-      openSkillModal(name, img.src);
+  /* =========================
+     3D PORTFOLIO CARD TILT
+  ========================= */
+
+  document
+    .querySelectorAll(".work-card")
+    .forEach((card) => {
+
+      card.addEventListener(
+        "mousemove",
+        (e) => {
+
+          if (
+            !matchMedia(
+              "(pointer:fine)"
+            ).matches
+          ) {
+            return;
+          }
+
+          const rect =
+            card.getBoundingClientRect();
+
+          const x =
+            (e.clientX - rect.left) /
+              rect.width -
+            0.5;
+
+          const y =
+            (e.clientY - rect.top) /
+              rect.height -
+            0.5;
+
+          card.style.transform = `
+            perspective(900px)
+            rotateX(${y * -3}deg)
+            rotateY(${x * 4}deg)
+            translateY(-5px)
+          `;
+        }
+      );
+
+
+      card.addEventListener(
+        "mouseleave",
+        () => {
+          card.style.transform = "";
+        }
+      );
+
     });
-  });
-
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') closeSkillModal();
-  });
 
 });
