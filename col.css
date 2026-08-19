@@ -51,6 +51,41 @@ body{
   opacity:0.95;
   box-shadow:0 8px 30px rgba(0,0,0,0.6),0 0 30px rgba(255,0,255,0.18);
 }
+.custom-cursor.cursor-click{
+  width:14px;height:14px;
+  box-shadow:0 0 24px rgba(0,240,255,0.6);
+}
+
+/* Slow trailing follower ring for extra smoothness */
+.cursor-trail{
+  position:fixed;
+  left:0;top:0;
+  width:38px;height:38px;
+  border-radius:50%;
+  pointer-events:none;
+  transform:translate(-50%,-50%);
+  border:1.5px solid rgba(0,240,255,0.45);
+  z-index:9998;
+  opacity:0.5;
+  transition:width 260ms ease, height 260ms ease, opacity 260ms ease, border-color 260ms;
+  will-change:transform,width,height,opacity;
+}
+.cursor-trail.trail-large{
+  width:70px;height:70px;
+  border-color:rgba(255,0,255,0.5);
+}
+
+/* Scroll progress bar */
+.scroll-progress{
+  position:fixed;
+  top:0;left:0;
+  height:3px;
+  width:0%;
+  background:linear-gradient(90deg,var(--neon-blue),var(--neon-pink));
+  box-shadow:0 0 12px rgba(0,240,255,0.7);
+  z-index:10001;
+  transition:width 80ms linear;
+}
 
 /* Basic sections */
 .hero{
@@ -90,27 +125,92 @@ body{
 
 /* Sections */
 .section{padding:80px 6%;max-width:1400px;margin:0 auto}
-.about{display:flex;gap:36px;align-items:flex-start}
-.about-img{width:320px;border-radius:12px;overflow:hidden;box-shadow:0 0 60px rgba(139,0,255,0.7);flex:0 0 auto}
+.about{display:flex;gap:48px;align-items:flex-start;position:relative}
+.about::before{
+  content:'';
+  position:absolute;
+  top:-40px;left:50%;
+  width:60vw;height:60vw;max-width:700px;max-height:700px;
+  transform:translateX(-50%);
+  background:radial-gradient(circle, rgba(139,0,255,0.12) 0%, rgba(0,0,0,0) 65%);
+  pointer-events:none;
+  z-index:-1;
+}
+.about-img{
+  width:320px;border-radius:16px;overflow:hidden;
+  box-shadow:0 0 60px rgba(139,0,255,0.7);
+  flex:0 0 auto;
+  border:1px solid rgba(255,255,255,0.08);
+  transition:transform 400ms cubic-bezier(.2,.9,.3,1), box-shadow 400ms;
+}
+.about-img:hover{
+  transform:translateY(-6px) rotate(-1deg) scale(1.02);
+  box-shadow:0 0 90px rgba(0,240,255,0.55);
+}
 .about-img img{width:100%;height:auto;display:block}
-.skills{display:flex;flex-wrap:wrap;gap:12px;margin-top:18px}
+.about h2{
+  position:relative;display:inline-block;
+  background:linear-gradient(90deg,var(--neon-blue),var(--neon-pink));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  animation:glowPulse 3.2s ease-in-out infinite;
+}
+.about p{color:var(--muted);max-width:60ch}
+.about h3{position:relative}
+.about h3::after{
+  content:'';
+  display:block;
+  width:60px;height:3px;margin-top:8px;
+  background:linear-gradient(90deg,var(--neon-blue),var(--neon-pink));
+  border-radius:3px;
+  box-shadow:0 0 10px rgba(0,240,255,0.6);
+}
+.skills{display:flex;flex-wrap:wrap;gap:14px;margin-top:18px}
+
+@keyframes glowPulse{
+  0%,100%{filter:drop-shadow(0 0 6px rgba(0,240,255,0.35))}
+  50%{filter:drop-shadow(0 0 18px rgba(255,0,255,0.55))}
+}
 
 /* Skill badges */
 .skill-badge{
   background:var(--glass);
-  padding:12px;border-radius:12px;
+  padding:14px 12px;border-radius:14px;
   display:flex;flex-direction:column;align-items:center;gap:8px;
-  transition:transform 220ms cubic-bezier(.2,.9,.3,1), box-shadow 220ms, border-color 220ms;
+  transition:transform 260ms cubic-bezier(.34,1.56,.64,1), box-shadow 260ms, border-color 260ms, background 260ms;
   border:1px solid rgba(0,240,255,0.14);
   width:110px;min-height:86px;justify-content:center;cursor:pointer;
+  position:relative;overflow:hidden;
 }
-.skill-badge img{width:48px;height:48px;object-fit:contain;display:block}
-.skill-badge span{font-size:0.9rem;text-align:center;color:#eee}
+.skill-badge::before{
+  content:'';
+  position:absolute;inset:0;
+  background:radial-gradient(circle at 50% 0%, rgba(0,240,255,0.18), transparent 70%);
+  opacity:0;
+  transition:opacity 260ms;
+}
+.skill-badge img{
+  width:48px;height:48px;object-fit:contain;display:block;
+  transition:transform 260ms cubic-bezier(.34,1.56,.64,1);
+}
+.skill-badge span{font-size:0.9rem;text-align:center;color:#eee;transition:color 220ms}
 .skill-badge:hover{
-  transform:translateY(-8px) scale(1.04);
-  box-shadow:0 10px 30px rgba(0,240,255,0.08);
-  border-color: rgba(0,240,255,0.28);
+  transform:translateY(-10px) scale(1.08);
+  box-shadow:0 14px 34px rgba(0,240,255,0.18);
+  border-color: rgba(0,240,255,0.4);
 }
+.skill-badge:hover::before{opacity:1}
+.skill-badge:hover img{transform:scale(1.15) rotate(-4deg)}
+.skill-badge:hover span{color:var(--neon-blue)}
+.skill-badge:active{transform:translateY(-4px) scale(0.97)}
+
+/* Pop animation triggered on click via JS */
+@keyframes popKick{
+  0%{transform:scale(1)}
+  35%{transform:scale(1.22) rotate(4deg)}
+  60%{transform:scale(0.93) rotate(-2deg)}
+  100%{transform:scale(1) rotate(0)}
+}
+.skill-badge.pop{animation:popKick 480ms cubic-bezier(.34,1.56,.64,1)}
 
 /* Portfolio */
 .portfolio{text-align:center}
@@ -138,44 +238,104 @@ footer{text-align:center;padding:28px;font-size:0.9rem;opacity:0.8}
 .reveal{opacity:0;transform:translateY(24px) scale(0.995);transition:opacity 600ms cubic-bezier(.2,.9,.3,1), transform 600ms cubic-bezier(.2,.9,.3,1);will-change:opacity,transform}
 .reveal.in{opacity:1;transform:translateY(0) scale(1)}
 
-/* Modal for skill logos (JS will toggle .modal-open)*/
+/* Modal for skill logos */
 .logo-modal{
-  position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.72);z-index:10000;padding:28px;
+  position:fixed;inset:0;display:flex;align-items:center;justify-content:center;
+  background:rgba(0,0,0,0.72);backdrop-filter:blur(6px);
+  z-index:10000;padding:28px;
+  animation:fadeIn 220ms ease;
 }
-.logo-modal .card{background:linear-gradient(180deg,rgba(255,255,255,0.03),rgba(255,255,255,0.02));padding:20px;border-radius:12px;max-width:480px;width:100%;text-align:center;border:1px solid rgba(255,255,255,0.04)}
-.logo-modal img{max-width:200px;height:auto;margin:6px auto 12px;display:block}
-.logo-modal h3{color:#fff;margin-bottom:6px}
+.logo-modal .card{
+  background:linear-gradient(180deg,rgba(255,255,255,0.05),rgba(255,255,255,0.02));
+  padding:28px;border-radius:16px;max-width:480px;width:100%;text-align:center;
+  border:1px solid rgba(0,240,255,0.18);
+  box-shadow:0 0 60px rgba(0,240,255,0.15), 0 20px 60px rgba(0,0,0,0.5);
+}
+.logo-modal .card.pop-in{animation:popIn 380ms cubic-bezier(.34,1.56,.64,1)}
+.logo-modal img{max-width:180px;height:auto;margin:6px auto 16px;display:block;filter:drop-shadow(0 0 20px rgba(0,240,255,0.35))}
+.logo-modal h3{
+  color:#fff;margin-bottom:8px;font-family:'Orbitron',sans-serif;
+  background:linear-gradient(90deg,var(--neon-blue),var(--neon-pink));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+}
 .logo-modal p{color:var(--muted);font-size:0.95rem}
-.logo-modal .close{margin-top:16px;padding:10px 16px;border-radius:10px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.04);cursor:pointer}
+.logo-modal .close{
+  margin-top:20px;padding:10px 22px;border-radius:40px;
+  background:linear-gradient(45deg,var(--neon-blue),var(--neon-pink));
+  color:#000;font-weight:700;border:none;cursor:pointer;
+  transition:transform 200ms, box-shadow 200ms;
+}
+.logo-modal .close:hover{transform:scale(1.05);box-shadow:0 8px 24px rgba(255,0,255,0.25)}
+
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes popIn{
+  0%{opacity:0;transform:scale(0.6) translateY(30px)}
+  60%{opacity:1;transform:scale(1.05) translateY(-4px)}
+  100%{opacity:1;transform:scale(1) translateY(0)}
+}
 
 /* Accessibility & touch: hide custom cursor on touch devices (the CSS-only approach) */
 @media (pointer: coarse){
   body{cursor:auto}
-  .custom-cursor{display:none !important}
+  .custom-cursor, .cursor-trail{display:none !important}
+}
+
+/* Fluid typography for a nicer scale between mobile and desktop */
+.hero h1{font-size:clamp(2.2rem, 6vw, 4.2rem)}
+.hero h2{font-size:clamp(1.4rem, 4vw, 2.2rem) !important}
+.hero p{font-size:clamp(1rem, 2.2vw, 1.5rem) !important}
+.about h2{font-size:clamp(2rem, 4.5vw, 2.8rem) !important}
+.portfolio h2{font-size:clamp(2rem, 5vw, 3rem) !important}
+.thank-you h1{font-size:clamp(2.2rem, 6vw, 3.2rem)}
+
+/* Responsive: laptop / small desktop */
+@media (max-width:1100px){
+  .section{padding:70px 5%}
+  .portfolio-grid{grid-template-columns:repeat(3,1fr);gap:18px}
 }
 
 /* Responsive: tablet */
 @media (max-width:900px){
-  .hero{padding:48px 6%}
-  .hero-inner{flex-direction:row;gap:20px}
+  .hero{padding:48px 6%;min-height:100vh;height:auto}
+  .hero-inner{flex-direction:row;gap:20px;flex-wrap:wrap;justify-content:center}
   .logo{width:200px;height:200px}
-  .hero h1{font-size:3rem}
   .portfolio-grid{grid-template-columns:repeat(2,1fr)}
-  .about{flex-direction:column;align-items:center;text-align:center}
+  .about{flex-direction:column;align-items:center;text-align:center;gap:28px}
   .about-img{width:260px}
-  .hero-content{margin-left:0}
-  .nav{top:18px;right:20px}
+  .about h3::after{margin-left:auto;margin-right:auto}
+  .hero-content{margin-left:0;text-align:center}
+  .nav{position:static;justify-content:center;margin-top:18px;top:auto;right:auto}
+  .info-boxes{justify-content:center}
 }
 
 /* Responsive: mobile */
-@media (max-width:480px){
-  .hero{height:auto;padding:40px 5%}
-  .hero-inner{flex-direction:column;gap:18px;align-items:center}
+@media (max-width:600px){
+  .hero{height:auto;padding:60px 6% 40px}
+  .hero-inner{flex-direction:column;gap:18px;align-items:center;text-align:center}
   .logo{width:150px;height:150px}
-  .hero h1{font-size:2.2rem}
-  .portfolio-grid{grid-template-columns:1fr}
-  .skills{justify-content:center}
-  .skill-badge{width:86px;padding:10px}
-  .about-img{width:180px}
-  .nav{position:static;order:3;margin-top:8px}
+  .section{padding:56px 6%}
+  .portfolio-grid{grid-template-columns:1fr;gap:16px}
+  .skills{justify-content:center;gap:10px}
+  .skill-badge{width:100px;padding:12px}
+  .about-img{width:200px}
+  .about p{max-width:100%}
+  .nav{position:static;order:3;margin-top:14px;gap:16px;flex-wrap:wrap;justify-content:center}
+  .info-boxes{flex-direction:column;align-items:center}
+  .info-card{width:100%;max-width:320px}
+  .connect-btn{width:100%;max-width:280px}
+  .thank-you{padding:60px 6%}
+  .logo-modal .card{padding:20px}
+}
+
+/* Responsive: very small phones */
+@media (max-width:360px){
+  .logo{width:120px;height:120px}
+  .skill-badge{width:84px;min-height:76px;padding:8px}
+  .skill-badge img{width:38px;height:38px}
+}
+
+/* Larger desktop / wide screens: keep content comfortably centered */
+@media (min-width:1600px){
+  .section{max-width:1600px}
+  .hero-inner{max-width:1400px}
 }
